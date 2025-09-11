@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { RoleEnum } from "../../common/constants/enums";
+import { RoleEnum } from "../../common/constants/enums.js";
 
 const userSchema = new Schema(
   {
@@ -12,7 +12,7 @@ const userSchema = new Schema(
       default: RoleEnum.USER,
     },
     bio: { type: String },
-    gender: { type: String, enum: ["male", "female", "other"] },
+    gender: { type: String, enum: ["male", "female", "other"], required: true },
     age: { type: Number },
     photos: [{ type: String }],
     location: {
