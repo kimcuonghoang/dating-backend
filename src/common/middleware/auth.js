@@ -13,10 +13,9 @@ export const authMiddleware = (req, res, next) => {
     const token = authHeader.startsWith("Bearer ")
       ? authHeader.split(" ")[1]
       : authHeader;
-    console.log(token);
+
     const decoded = jwt.verify(token, JWT_SECRET_KEY, { expiresIn: "7d" });
 
-    // Đảm bảo luôn có req.user._id
     req.user = decoded._id ? decoded : { _id: decoded.id };
 
     next();

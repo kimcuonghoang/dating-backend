@@ -8,7 +8,6 @@ import {
 
 export const getProfileUserController = handleAsync(async (req, res) => {
   const user = await getProfileUserService(req.params.userId);
-  console.log(user);
   return createResponse(res, 200, MESSAGES.USER.GET_PROFILE_SUCCESS, user);
 });
 

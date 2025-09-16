@@ -1,30 +1,22 @@
 import User from "../user/user.model.js";
-import Match from "../match/match.model.js"; // file match bạn đã viết
+import Match from "../match/match.model.js";
 
-/**
- * User A like User B
- * @param {String} userId - ID của người đang like
- * @param {String} targetUserId - ID của người bị like
- */
 export const likeUserService = async (userId, targetUserId) => {
   if (userId === targetUserId) {
     throw new Error("Không thể like chính mình");
   }
 
-  // Thêm targetUserId vào danh sách likes của userId (ko trùng lặp)
   await User.findByIdAndUpdate(userId, {
     $addToSet: { likes: targetUserId },
   });
 
-  // Kiểm tra xem targetUser đã like userId trước đó chưa
   const targetUser = await User.findOne({
     _id: targetUserId,
     likes: userId,
   });
 
   if (targetUser) {
-    // Nếu đã like thì tạo Match (nếu chưa tồn tại)
-    const users = [userId, targetUserId].sort(); // đảm bảo thứ tự cố định
+    const users = [userId, targetUserId].sort();
 
     const existingMatch = await Match.findOne({
       users: { $all: users, $size: 2 },
