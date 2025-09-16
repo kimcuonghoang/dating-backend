@@ -3,7 +3,19 @@ const MESSAGES = {
     REGISTER_SUCCESS: "Đăng ký thành công",
     LOGIN_SUCCESS: "Đăng nhập thành công",
     LOGOUT_SUCCESS: "Đăng xuất thành công",
+    REGISTER_FAIL: "Đăng ký thất bại",
+    LOGIN_FAIL: "Đăng nhập thất bại",
+    LOGOUT_FAIL: "Đăng xuất thất bại",
     INVALID_CREDENTIALS: "Thông tin đăng nhập không hợp lệ",
+    EMAIL_EXISTS: "Email đã tồn tại",
+    USER_NOT_FOUND: "Người dùng không tồn tại",
+  },
+  USER: {
+    GET_PROFILE_SUCCESS: "Lấy hồ sơ thành công",
+    GET_PROFILE_FAIL: "Lấy hồ sơ thất bại",
+    PROFILE_UPDATE_SUCCESS: "Cập nhật hồ sơ thành công",
+    PROFILE_UPDATE_FAIL: "Cập nhật hồ sơ thất bại",
+    USER_NOT_FOUND: "Người dùng không tồn tại",
   },
   LIKE: {
     LIKE_SUCCESS: "Thích thành công",
@@ -32,3 +44,5 @@ const MESSAGES = {
     NOT_FOUND: "Tin nhắn không tồn tại",
   },
 };
+
+export default MESSAGES;
