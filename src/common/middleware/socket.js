@@ -6,7 +6,10 @@ const onlineUsers = new Map();
 
 export const initSocket = (httpServer) => {
   io = new Server(httpServer, {
-    cors: { origin: "*" },
+    origin: [
+      "http://localhost:5173",
+      "https://dating-frontend-zty5.vercel.app",
+    ],
   });
 
   io.on("connection", (socket) => {
