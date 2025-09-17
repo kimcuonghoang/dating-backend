@@ -5,7 +5,6 @@ import connectDB from "./src/common/configs/db.js";
 import { HOST, PORT } from "./src/common/configs/environments.js";
 import { socketHandler } from "./socket.js";
 import { createServer } from "http";
-import { Server } from "socket.io";
 import { initSocket } from "./src/common/middleware/socket.js";
 
 connectDB();
