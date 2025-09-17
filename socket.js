@@ -1,37 +1,33 @@
-import { onlineUsers } from "./src/common/middleware/socket.js";
 import { sendMessageService } from "./src/modules/message/message.service.js";
 
 export const socketHandler = (io) => {
   io.on("connection", (socket) => {
-    console.log("Socket connected:", socket.id);
+    console.log("User connected:", socket.id);
 
-    socket.on("join", (userId) => {
-      onlineUsers.set(userId, socket.id);
-      console.log("User joined:", userId);
+    socket.on("joinRoom", (matchId) => {
+      socket.join(matchId);
+      console.log(`User ${socket.id} joined room ${matchId}`);
     });
 
-    socket.on("sendMessage", async ({ matchId, senderId, content }) => {
+    socket.on("leaveRoom", (matchId) => {
+      socket.leave(matchId);
+      console.log(`User ${socket.id} left room ${matchId}`);
+    });
+
+    socket.on("sendMessage", async (data) => {
       try {
-        await sendMessageService(io, {
-          matchId,
-          senderId,
-          content,
-          onlineUsers,
-        });
+        console.log("Received message data:", data);
+        // ✅ truyền io và data
+        const msg = await sendMessageService(io, data);
+        // nếu muốn vẫn emit cho cả room
+        io.to(data.matchId).emit("receiveMessage", msg);
       } catch (err) {
-        console.error("SendMessage error:", err.message);
-        socket.emit("errorMessage", err.message);
+        console.error("Send message error:", err);
       }
     });
 
     socket.on("disconnect", () => {
-      for (let [userId, sId] of onlineUsers.entries()) {
-        if (sId === socket.id) {
-          onlineUsers.delete(userId);
-          console.log("User disconnected:", userId);
-          break;
-        }
-      }
+      console.log("User disconnected:", socket.id);
     });
   });
 };

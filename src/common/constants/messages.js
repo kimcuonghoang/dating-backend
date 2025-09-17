@@ -11,6 +11,8 @@ const MESSAGES = {
     USER_NOT_FOUND: "Người dùng không tồn tại",
   },
   USER: {
+    GET_ALL_USER_SUCCESS: "Lấy tất cả người dùng thành công",
+    GET_ALL_USER_FAILED: "Lấy tất cả người dùng thất bại",
     GET_PROFILE_SUCCESS: "Lấy hồ sơ thành công",
     GET_PROFILE_FAIL: "Lấy hồ sơ thất bại",
     PROFILE_UPDATE_SUCCESS: "Cập nhật hồ sơ thành công",

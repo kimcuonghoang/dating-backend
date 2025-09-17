@@ -18,3 +18,10 @@ export const updateProfileUserService = async (userId, dataUpdate) => {
   }
   return updatedUser;
 };
+export const getAllUserService = async () => {
+  const user = await User.find();
+  if (!user) {
+    return createError(404, MESSAGES.USER.GET_ALL_USER_FAILED);
+  }
+  return user;
+};

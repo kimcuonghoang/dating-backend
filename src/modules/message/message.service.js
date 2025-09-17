@@ -8,7 +8,6 @@ export const sendMessageService = async (
   { matchId, senderId, content }
 ) => {
   const match = await Match.findById(matchId);
-  console.log(match);
   if (!match) throw createError(400, "Match not found");
 
   const message = await Message.create({
@@ -17,14 +16,15 @@ export const sendMessageService = async (
     content,
   });
 
-  match.users.forEach((user) => {
+  // Gửi realtime cho từng user trong match nếu đang online
+  for (const user of match.users) {
     const socketId = onlineUsers.get(user.toString());
     if (socketId) {
-      io.to(socketId).emit("newMessage", message);
+      io.to(socketId).emit("receiveMessage", message);
     }
-  });
+  }
 
-  return message;
+  return message.populate("senderId", "username photos");
 };
 
 export const getMessagesService = async (matchId, page = 1, limit = 20) => {
@@ -33,7 +33,7 @@ export const getMessagesService = async (matchId, page = 1, limit = 20) => {
     .sort({ createdAt: -1 })
     .skip(skip)
     .limit(limit)
-    .populate("sender", "username photos");
+    .populate("senderId", "username photos");
 
   return messages.reverse();
 };
