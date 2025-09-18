@@ -12,8 +12,9 @@ const userSchema = new Schema(
       default: RoleEnum.USER,
     },
     birthday: { type: Date },
+    location: { type: String },
     bio: { type: String, default: "Tìm người yêu" },
-    gender: { type: String, enum: ["male", "female", "other"], required: true },
+    gender: { type: String, enum: ["male", "female"], required: true },
     age: { type: Number },
     interests: [{ type: String }],
     photos: {
