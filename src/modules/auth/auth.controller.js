@@ -9,6 +9,6 @@ export const registerController = handleAsync(async (req, res) => {
 
 export const loginController = handleAsync(async (req, res) => {
   const login = await loginService(req.body);
-  console.log(login);
+
   return createResponse(res, 200, "Dang nhap thanh cong", login);
 });
