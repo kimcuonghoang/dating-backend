@@ -8,7 +8,6 @@ export const getMatchByLikeController = handleAsync(async (req, res) => {
   const userId = req.params.userId || req.user._id;
 
   const matches = await getMatchesService(userId);
-  console.log(matches);
 
   return createResponse(res, 200, "Get matches by like success", matches);
 });

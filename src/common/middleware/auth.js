@@ -3,18 +3,15 @@ import { JWT_SECRET_KEY } from "../configs/environments.js";
 
 export const authMiddleware = (req, res, next) => {
   try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader) {
+    const token = req.cookies?.accessToken;
+
+    if (!token) {
       return res
         .status(401)
         .json({ success: false, message: "No token provided" });
     }
 
-    const token = authHeader.startsWith("Bearer ")
-      ? authHeader.split(" ")[1]
-      : authHeader;
-
-    const decoded = jwt.verify(token, JWT_SECRET_KEY, { expiresIn: "7d" });
+    const decoded = jwt.verify(token, JWT_SECRET_KEY);
 
     req.user = decoded._id ? decoded : { _id: decoded.id };
 

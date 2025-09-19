@@ -9,16 +9,17 @@ import { initSocket } from "./src/common/middleware/socket.js";
 import jsonValidator from "./src/common/middleware/json.middleware.js";
 import notFoundHandler from "./src/common/middleware/notfound.middleware.js";
 import errorHandler from "./src/common/middleware/error.middleware.js";
-
+import cookieParser from "cookie-parser";
 connectDB();
 const app = express();
-
+app.use(cookieParser());
 app.use(
   cors({
     origin: [
       "http://localhost:5173",
       "https://dating-frontend-zty5.vercel.app",
     ],
+    credentials: true,
   })
 );
 app.use(express.json());
